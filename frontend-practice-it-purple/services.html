@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Авито — Ремонт и отделка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.72);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1.5px solid #00A046;
+            border-radius: 24px;
+            box-shadow: 0 2px 24px rgba(0,160,70,0.07);
+            padding: 52px 88px 56px;
+            width: 100%;
+            max-width: 720px;
+            display: flex;
+            flex-direction: column;
+            animation: fadeUp 0.45s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HEADER */
+        .header { display: flex; justify-content: center; margin-bottom: 20px; }
+        .header img { height: 36px; width: auto; }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            margin-bottom: 6px;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 10px;
+            margin-top: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #1a1a1a;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .back-btn:hover {
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .page-title { font-size: 24px; font-weight: 700; color: #1a1a1a; }
+        .page-subtitle { text-align: center; font-size: 15px; color: #aaa; margin-bottom: 20px; margin-top: 6px; }
+
+        .divider { width: 100%; height: 1px; background: #eee; margin-bottom: 12px; }
+
+        /* ── STEP 1: CATEGORY LIST ── */
+        #step-category { display: flex; flex-direction: column; }
+
+        .category-list { width: 100%; display: flex; flex-direction: column; }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 13px 12px;
+            border-radius: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.15s, transform 0.15s;
+            border-bottom: 1px solid #f2f2f2;
+        }
+        .category-item:last-child { border-bottom: none; }
+        .category-item:hover { background: #f7fdf9; transform: translateX(4px); }
+        .category-item:hover .cat-arrow { color: #00A046; }
+
+        .cat-icon {
+            width: 44px; height: 44px;
+            border-radius: 14px;
+            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+        }
+
+        .cat-title { font-size: 16px; font-weight: 600; color: #1a1a1a; flex: 1; }
+        .cat-arrow { font-size: 20px; color: #ddd; transition: color 0.18s, transform 0.15s; }
+        .category-item:hover .cat-arrow { transform: translateX(2px); }
+
+        /* ── STEP 2: FORM ── */
+        #step-form { display: none; flex-direction: column; }
+
+        .selected-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #e6f7ee;
+            color: #00A046;
+            border: 1px solid #b8e8cc;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            align-self: center;
+        }
+
+        .input-label { font-size: 14px; font-weight: 600; color: #666; margin-bottom: 10px; }
+
+        .textarea-custom {
+            width: 100%; min-height: 200px; padding: 16px;
+            border-radius: 16px; border: 1.5px solid #eee;
+            background: #fafafa; font-family: 'Inter', sans-serif;
+            font-size: 15px; outline: none; resize: none;
+            transition: border-color 0.2s;
+            line-height: 1.6;
+        }
+        .textarea-custom:focus { border-color: #00A046; background: #fff; }
+
+        .btn-analyze {
+            background: #00A046; color: #fff; border: none;
+            padding: 16px; border-radius: 12px;
+            font-size: 16px; font-weight: 700;
+            cursor: pointer; transition: all 0.2s; margin-top: 14px;
+        }
+        .btn-analyze:hover { background: #008f3e; transform: translateY(-2px); }
+        .btn-analyze:disabled { background: #aaa; cursor: default; transform: none; }
+
+        /* RESULTS */
+        #results { margin-top: 20px; display: flex; flex-direction: column; gap: 16px; }
+
+        .results-section-label {
+            font-size: 11px; font-weight: 700; color: #aaa;
+            text-transform: uppercase; letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+
+        .chips-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .chip {
+            padding: 6px 12px; border-radius: 20px;
+            font-size: 13px; font-weight: 500;
+        }
+        .chip-split { background: #e6f7ee; color: #00A046; border: 1px solid #b8e8cc; }
+        .chip-base  { background: #f5f5f5; color: #666; border: 1px solid #eee; }
+
+        .draft-card {
+            padding: 16px; border: 1px solid #eee;
+            border-radius: 14px; background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .draft-header {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 10px;
+        }
+        .draft-title { font-size: 15px; font-weight: 700; color: #1a1a1a; }
+        .draft-label {
+            font-size: 10px; color: #00A046;
+            font-weight: 800; letter-spacing: 0.06em;
+        }
+        .draft-text { font-size: 13px; color: #666; line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+
+    <!-- Логотип -->
+    <div class="header">
+        <img src="https://logo-teka.com/wp-content/uploads/2025/06/avito-logo.svg" alt="Авито"/>
+    </div>
+
+    <!-- ── ШАГ 1: ВЫБОР КАТЕГОРИИ ── -->
+    <div id="step-category">
+        <div class="title-row">
+            <a class="back-btn" href="service_types.html">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+                </svg>
+            </a>
+            <p class="page-title">Ремонт и отделка</p>
+        </div>
+        <p class="page-subtitle">Выберите микрокатегорию</p>
+        <div class="divider"></div>
+
+        <nav class="category-list">
+            <a class="category-item" onclick="selectCategory(101, 'Ремонт под ключ', '🏠')">
+                <div class="cat-icon" style="background: linear-gradient(145deg,#e6f7ee,#b8f0d0);">🏠</div>
+                <span class="cat-title">Ремонт под ключ</span>
+                <span class="cat-arrow">›</span>
+            </a>
+            <a class="category-item" onclick="selectCategory(102, 'Сантехника', '🚿')">
+                <div class="cat-icon" style="background: linear-gradient(145deg,#e8f4ff,#b8dcff);">🚿</div>
+                <span class="cat-title">Сантехника</span>
+                <span class="cat-arrow">›</span>
+            </a>
+            <a class="category-item" onclick="selectCategory(103, 'Электрика', '⚡')">
+                <div class="cat-icon" style="background: linear-gradient(145deg,#fffde7,#fff0a0);">⚡</div>
+                <span class="cat-title">Электрика</span>
+                <span class="cat-arrow">›</span>
+            </a>
+            <a class="category-item" onclick="selectCategory(104, 'Натяжные потолки', '✨')">
+                <div class="cat-icon" style="background: linear-gradient(145deg,#f0eaff,#d8c8f8);">✨</div>
+                <span class="cat-title">Натяжные потолки</span>
+                <span class="cat-arrow">›</span>
+            </a>
+            <a class="category-item" onclick="selectCategory(105, 'Укладка плитки', '🧱')">
+                <div class="cat-icon" style="background: linear-gradient(145deg,#fff4e0,#ffd8a0);">🧱</div>
+                <span class="cat-title">Укладка плитки</span>
+                <span class="cat-arrow">›</span>
+            </a>
+            <a class="category-item" onclick="selectCategory(106, 'Поклейка обоев', '🖼️')">
+                <div class="cat-icon" style="background: linear-gradient(145deg,#fce4ec,#f8bbd0);">🖼️</div>
+                <span class="cat-title">Поклейка обоев</span>
+                <span class="cat-arrow">›</span>
+            </a>
+            <a class="category-item" onclick="selectCategory(107, 'Малярные работы', '🎨')">
+                <div class="cat-icon" style="background: linear-gradient(145deg,#e8f5e9,#c8e6c9);">🎨</div>
+                <span class="cat-title">Малярные работы</span>
+                <span class="cat-arrow">›</span>
+            </a>
+            <a class="category-item" onclick="selectCategory(108, 'Штукатурные работы', '🪣')">
+                <div class="cat-icon" style="background: linear-gradient(145deg,#efebe9,#d7ccc8);">🪣</div>
+                <span class="cat-title">Штукатурные работы</span>
+                <span class="cat-arrow">›</span>
+            </a>
+            <a class="category-item" onclick="selectCategory(109, 'Напольные покрытия', '🪵')">
+                <div class="cat-icon" style="background: linear-gradient(145deg,#fff8e1,#ffecb3);">🪵</div>
+                <span class="cat-title">Напольные покрытия</span>
+                <span class="cat-arrow">›</span>
+            </a>
+            <a class="category-item" onclick="selectCategory(110, 'Гипсокартон', '🔧')">
+                <div class="cat-icon" style="background: linear-gradient(145deg,#e3f2fd,#bbdefb);">🔧</div>
+                <span class="cat-title">Гипсокартон</span>
+                <span class="cat-arrow">›</span>
+            </a>
+            <a class="category-item" onclick="selectCategory(111, 'Демонтаж', '⛏️')">
+                <div class="cat-icon" style="background: linear-gradient(145deg,#f3e5f5,#e1bee7);">⛏️</div>
+                <span class="cat-title">Демонтаж</span>
+                <span class="cat-arrow">›</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- ── ШАГ 2: ФОРМА ВВОДА ── -->
+    <div id="step-form">
+        <div class="title-row">
+            <a class="back-btn" href="#" onclick="goBack(); return false;">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+                </svg>
+            </a>
+            <p class="page-title">Создать объявление</p>
+        </div>
+        <p class="page-subtitle" style="margin-top:6px;">Опишите ваши услуги</p>
+
+        <div class="divider"></div>
+
+        <div id="selected-badge-wrap" style="display:flex; justify-content:center; margin-bottom:18px;">
+            <span class="selected-badge">
+                <span id="badge-icon"></span>
+                <span id="badge-title"></span>
+            </span>
+        </div>
+
+        <p class="input-label">Текст объявления</p>
+        <textarea id="adText" class="textarea-custom"
+                  placeholder="Напишите здесь всё, что вы умеете. Например: Делаем ремонт квартир под ключ, отдельно клеим обои, кладём ламинат..."></textarea>
+
+        <button class="btn-analyze" id="analyzeBtn" onclick="startAnalysis()">
+            Проверить объявление
+        </button>
+
+        <div id="results"></div>
+    </div>
+
+</div>
+
+<script>
+    const mcNames = {
+        101: "Ремонт под ключ", 102: "Сантехника", 103: "Электрика",
+        104: "Натяжные потолки", 105: "Укладка плитки", 106: "Поклейка обоев",
+        107: "Малярные работы", 108: "Штукатурные работы", 109: "Напольные покрытия",
+        110: "Гипсокартон", 111: "Демонтаж"
+    };
+
+    const mockResponse = {
+        detectedMcIds: [101, 102, 106, 107, 109],
+        shouldSplit: true,
+        splitMcIds: [102, 106, 107, 109],
+        drafts: [
+            { mcId: 102, mcTitle: "Сантехника", text: "Предлагаю услуги сантехника: разводка воды и канализации, монтаж водоснабжения, замена труб. Опыт 12 лет. Вызов сегодня!" },
+            { mcId: 106, mcTitle: "Поклейка обоев", text: "Поклейка обоев любой сложности: бумажные, виниловые, флизелиновые, фотообои. Аккуратно, в срок. Опыт бригады — 12 лет." },
+            { mcId: 107, mcTitle: "Малярные работы", text: "Малярные работы: покраска стен, потолков, откосов, дверей, радиаторов. Деревянные и металлические поверхности. Готов приступить сегодня." },
+            { mcId: 109, mcTitle: "Напольные покрытия", text: "Укладка напольных покрытий: ламинат, кварцвинил, линолеум, паркетная и инженерная доска, SPC и ПВХ плитка. Монтаж плинтусов, подложки. Гарантия качества." }
+        ]
+    };
+
+    let selectedMcId = null;
+
+    function selectCategory(id, title, icon) {
+        selectedMcId = id;
+        document.getElementById('badge-icon').textContent = icon;
+        document.getElementById('badge-title').textContent = title;
+        document.getElementById('step-category').style.display = 'none';
+        document.getElementById('step-form').style.display = 'flex';
+        document.getElementById('adText').value = '';
+        document.getElementById('results').innerHTML = '';
+        const btn = document.getElementById('analyzeBtn');
+        btn.textContent = 'Проверить объявление';
+        btn.disabled = false;
+        btn.style.background = '#00A046';
+    }
+
+    function goBack() {
+        document.getElementById('step-form').style.display = 'none';
+        document.getElementById('step-category').style.display = 'flex';
+    }
+
+    function startAnalysis() {
+        const text = document.getElementById('adText').value.trim();
+        if (!text) { alert('Пожалуйста, введите текст объявления'); return; }
+
+        const btn = document.getElementById('analyzeBtn');
+        btn.textContent = 'Анализ AI...';
+        btn.disabled = true;
+
+        setTimeout(() => {
+            renderResults(mockResponse);
+            btn.textContent = 'Анализ завершён ✓';
+            btn.style.background = '#aaa';
+        }, 1500);
+    }
+
+    function renderResults(data) {
+        const container = document.getElementById('results');
+        container.innerHTML = '';
+
+        // Chips
+        const chipsSection = document.createElement('div');
+        chipsSection.innerHTML = '<p class="results-section-label">Обнаруженные услуги</p>';
+        const chipsWrap = document.createElement('div');
+        chipsWrap.className = 'chips-wrap';
+        data.detectedMcIds.forEach(id => {
+            const chip = document.createElement('span');
+            chip.className = 'chip ' + (data.splitMcIds.includes(id) ? 'chip-split' : 'chip-base');
+            chip.textContent = mcNames[id] || id;
+            chipsWrap.appendChild(chip);
+        });
+        chipsSection.appendChild(chipsWrap);
+        container.appendChild(chipsSection);
+
+        // Drafts
+        if (data.shouldSplit && data.drafts.length) {
+            const draftsSection = document.createElement('div');
+            draftsSection.innerHTML = '<p class="results-section-label" style="margin-top:8px;">Рекомендованные черновики</p>';
+            data.drafts.forEach(draft => {
+                const card = document.createElement('div');
+                card.className = 'draft-card';
+                card.innerHTML = `
+                    <div class="draft-header">
+                        <span class="draft-title">${draft.mcTitle}</span>
+                        <span class="draft-label">ЧЕРНОВИК</span>
+                    </div>
+                    <p class="draft-text">${draft.text}</p>
+                `;
+                draftsSection.appendChild(card);
+            });
+            container.appendChild(draftsSection);
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "model_source": "trained",
+  "sample_size": 300,
+  "classes": [
+    "-1",
+    "0",
+    "1"
+  ],
+  "output_dir": "C:\\Users\\gex\\Desktop\\проектпо питону\\ML\\catboost\\shap_outputs"
+}

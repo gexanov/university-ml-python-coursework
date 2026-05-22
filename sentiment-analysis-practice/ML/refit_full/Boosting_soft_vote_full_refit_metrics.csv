@@ -1,0 +1,2 @@
+model,accuracy,precision_macro,recall_macro,f1_macro,roc_auc_ovr_macro,pr_auc_macro,fit_seconds
+Boosting_soft_vote_full_refit,0.7395555555555555,0.7446722533959762,0.7395555555555555,0.7413315587280578,0.8947640324074074,0.8082853077118951,0.0

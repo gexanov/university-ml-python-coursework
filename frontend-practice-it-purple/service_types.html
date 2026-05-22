@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Авито — Виды услуг</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+
+        .card {
+            background: rgba(255,255,255,0.72);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1.5px solid #00A046;
+            border-radius: 24px;
+            box-shadow: 0 2px 24px rgba(0,160,70,0.07);
+            padding: 52px 88px 56px;
+            width: 100%;
+            max-width: 720px;
+
+            height: 950px;
+
+            display: flex;
+            flex-direction: column;
+            animation: fadeUp 0.45s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .header { display: flex; justify-content: center; margin-bottom: 20px; }
+        .header img { height: 36px; }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            margin-bottom: 6px;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 10px;
+            margin-top: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #1a1a1a;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .back-btn:hover {
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .page-title { font-size: 24px; font-weight: 700; color: #1a1a1a; }
+        .page-subtitle { text-align: center; font-size: 15px; color: #aaa; margin-bottom: 24px; }
+        .divider { width: 100%; height: 1px; background: #eee; margin-bottom: 12px; }
+
+        .service-list {
+            display: flex;
+            flex-direction: column;
+
+            flex: 1;
+            overflow-y: auto;
+
+            padding-right: 5px;
+        }
+
+        /* Кастомный скроллбар */
+        .service-list::-webkit-scrollbar { width: 4px; }
+        .service-list::-webkit-scrollbar-thumb { background: #eee; border-radius: 4px; }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px;
+            border-radius: 14px;
+            text-decoration: none;
+            transition: all 0.15s;
+            border-bottom: 1px solid #f2f2f2;
+        }
+        .service-item:hover { background: #f7fdf9; transform: translateX(5px); }
+
+        /* Иконки с разными фонами */
+        .s-icon {
+            width: 42px; height: 42px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .s-title { font-size: 16px; font-weight: 600; color: #333; flex: 1; }
+        .s-arrow { color: #ddd; font-size: 20px; }
+
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="header"><img src="https://logo-teka.com/wp-content/uploads/2025/06/avito-logo.svg" alt="Авито"/></div>
+
+    <div class="title-row">
+        <a class="back-btn" href="create.html">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </a>
+        <p class="page-title">Выбор услуги</p>
+    </div>
+    <p class="page-subtitle">Какую услугу вы предлагаете?</p>
+    <div class="divider"></div>
+
+    <nav class="service-list">
+
+        <!-- 1. РЕМОНТ И ОТДЕЛКА (РАБОЧАЯ) -->
+        <a href="services.html" class="service-item active-row">
+            <div class="s-icon" style="background: #e6f7ee;">🛠️</div>
+            <span class="s-title">Ремонт и отделка</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <!-- 2. ОСТАЛЬНЫЕ (НА ОШИБКУ) -->
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #fff4e0;">🧹</div>
+            <span class="s-title">Уборка</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #e3f2fd;">🔨</div>
+            <span class="s-title">Мастер на час</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #f3e5f5;">📦</div>
+            <span class="s-title">Сборка мебели</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #e8f5e9;">🚗</div>
+            <span class="s-title">Автосервис</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #fff3e0;">🔌</div>
+            <span class="s-title">Ремонт техники</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #e1f5fe;">🚚</div>
+            <span class="s-title">Грузоперевозки</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #fce4ec;">💅</div>
+            <span class="s-title">Красота и здоровье</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #f1f8e9;">🎓</div>
+            <span class="s-title">Обучение</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #e8eaf6;">📸</div>
+            <span class="s-title">Фото и видео</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #fffde7;">🎉</div>
+            <span class="s-title">Праздники</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #efebe9;">⚖️</div>
+            <span class="s-title">Юридические услуги</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #e0f2f1;">📈</div>
+            <span class="s-title">Бухгалтерия</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #f9fbe7;">🛵</div>
+            <span class="s-title">Курьеры</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+        <a href="unavailable.html" class="service-item">
+            <div class="s-icon" style="background: #f3e5f5;">🐕</div>
+            <span class="s-title">Животные</span>
+            <span class="s-arrow">›</span>
+        </a>
+
+    </nav>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+{
+  "duplicates": {
+    "text_only": 2679,
+    "full_rows": 2679
+  },
+  "empty_texts": 1,
+  "nulls": {
+    "text": 0,
+    "label": 0
+  },
+  "text_stats": {
+    "char_len": {
+      "count": 87320.0,
+      "mean": 133.23968163078334,
+      "std": 126.26811950003282,
+      "min": 1.0,
+      "25%": 54.0,
+      "50%": 94.0,
+      "75%": 167.0,
+      "max": 1007.0
+    },
+    "word_count": {
+      "count": 87320.0,
+      "mean": 20.49523591387998,
+      "std": 19.92603336340353,
+      "min": 1.0,
+      "25%": 8.0,
+      "50%": 14.0,
+      "75%": 26.0,
+      "max": 193.0
+    }
+  },
+  "recommended_max_len": 376,
+  "class_distribution": {
+    "0": {
+      "count": 29218,
+      "percent": 33.46
+    },
+    "1": {
+      "count": 28812,
+      "percent": 33.0
+    },
+    "2": {
+      "count": 29290,
+      "percent": 33.54
+    }
+  },
+  "imbalance_ratio": 1.02,
+  "data_leakage": {
+    "train_val": 0,
+    "train_test": 0,
+    "val_test": 0
+  }
+}

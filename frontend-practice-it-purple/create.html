@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Авито — Создать объявление</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid #00A046;
+      border-radius: 24px;
+      box-shadow: 0 2px 24px rgba(0,160,70,0.07);
+      padding: 52px 88px 56px;
+      width: 100%;
+      max-width: 720px;
+      animation: fadeUp 0.45s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .header img { height: 36px; width: auto; }
+
+
+    .title-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        position: relative;
+        margin-bottom: 6px;
+    }
+
+    .back-btn {
+        position: absolute;
+        left: 10px;
+        margin-top: 30px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 2px solid #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #1a1a1a;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .back-btn:hover {
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 0;
+    }
+
+    .page-subtitle {
+        text-align: center;
+        font-size: 15px;
+        color: #aaa;
+        margin-bottom: 28px;
+    }
+
+    .divider { width: 100%; height: 1px; background: #eee; margin-bottom: 8px; }
+
+    /* CATEGORY LIST */
+    .category-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .category-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 14px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.15s;
+      border-bottom: 1px solid #f2f2f2;
+      position: relative;
+    }
+
+    .category-item:last-child { border-bottom: none; }
+
+    .category-item:hover {
+      background: #f7fdf9;
+      transform: translateX(4px);
+    }
+
+    .category-item:hover .cat-arrow { color: #00A046; }
+
+    /* ICON */
+    .cat-icon {
+      width: 40px; height: 40px;
+      border-radius: 16px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cat-icon svg { width: 38px; height: 38px; }
+
+    /* Icon backgrounds per category */
+    .icon-transport  { background: linear-gradient(145deg, #e8eeff, #c8d4ff); }
+    .icon-realty     { background: linear-gradient(145deg, #e8f4ff, #c0dcf8); }
+    .icon-work       { background: linear-gradient(145deg, #f0eaff, #d8c8f8); }
+    .icon-services   { background: linear-gradient(145deg, #e0f2ff, #b8e0f8); }
+    .icon-personal   { background: linear-gradient(145deg, #f8ecff, #e8c8f8); }
+    .icon-home       { background: linear-gradient(145deg, #fff4e0, #ffd8a0); }
+    .icon-electronics{ background: linear-gradient(145deg, #e8f8ff, #b0e0ff); }
+    .icon-hobby      { background: linear-gradient(145deg, #fff0f8, #ffc8e8); }
+    .icon-animals    { background: linear-gradient(145deg, #f0fff4, #b8f0d0); }
+    .icon-business   { background: linear-gradient(145deg, #f4f4f4, #dcdcdc); }
+
+    .cat-text { flex: 1; }
+
+    .cat-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .cat-arrow {
+      font-size: 20px;
+      color: #ddd;
+      transition: color 0.18s, transform 0.15s;
+    }
+    .category-item:hover .cat-arrow { transform: translateX(2px); }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Header -->
+  <div class="header">
+    <img src="https://logo-teka.com/wp-content/uploads/2025/06/avito-logo.svg" alt="Авито"/>
+  </div>
+
+    <div class="title-row">
+        <a class="back-btn" href="index.html">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </a>
+        <p class="page-title">Новое объявление</p>
+    </div>
+  <p class="page-subtitle">Выберите категорию</p>
+  <div class="divider"></div>
+
+  <nav class="category-list">
+
+    <!-- Транспорт -->
+    <a class="category-item" href="unavailable.html">
+      <div class="cat-icon icon-transport">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="13" width="30" height="14" rx="5" fill="#7a9fff"/>
+          <rect x="7" y="10" width="18" height="8" rx="3" fill="#adc4ff"/>
+          <circle cx="11" cy="27" r="4" fill="#4a6ee0"/>
+          <circle cx="27" cy="27" r="4" fill="#4a6ee0"/>
+          <circle cx="11" cy="27" r="2" fill="#dde8ff"/>
+          <circle cx="27" cy="27" r="2" fill="#dde8ff"/>
+          <rect x="22" y="15" width="1.5" height="6" rx="0.75" fill="#fff" opacity="0.6"/>
+        </svg>
+      </div>
+      <span class="cat-title">Транспорт</span>
+      <span class="cat-arrow">›</span>
+    </a>
+
+    <!-- Недвижимость -->
+    <a class="category-item" href="unavailable.html">
+      <div class="cat-icon icon-realty">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="19,6 34,18 4,18" fill="#90c4f0"/>
+          <rect x="8" y="18" width="22" height="16" rx="2" fill="#60a8e8"/>
+          <rect x="14" y="24" width="5" height="10" rx="1.5" fill="#cce4fa"/>
+          <rect x="21" y="22" width="5" height="5" rx="1" fill="#cce4fa"/>
+        </svg>
+      </div>
+      <span class="cat-title">Недвижимость</span>
+      <span class="cat-arrow">›</span>
+    </a>
+
+    <!-- Работа -->
+    <a class="category-item" href="unavailable.html">
+      <div class="cat-icon icon-work">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="15" width="26" height="17" rx="3" fill="#b090f0"/>
+          <rect x="13" y="10" width="12" height="7" rx="2" fill="#d0b8ff"/>
+          <rect x="13" y="10" width="12" height="3" rx="2" fill="#c4a8ff"/>
+          <rect x="10" y="21" width="18" height="2" rx="1" fill="#e8dcff" opacity="0.8"/>
+          <rect x="10" y="25" width="12" height="2" rx="1" fill="#e8dcff" opacity="0.6"/>
+        </svg>
+      </div>
+      <span class="cat-title">Работа</span>
+      <span class="cat-arrow">›</span>
+    </a>
+
+    <!-- Услуги -->
+    <a class="category-item" href="service_types.html">
+      <div class="cat-icon icon-services">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Roller handle -->
+          <rect x="22" y="6" width="4" height="14" rx="2" fill="#60b8e8"/>
+          <!-- Roller head -->
+          <rect x="10" y="10" width="16" height="8" rx="3" fill="#90d0f8"/>
+          <!-- Paint streak -->
+          <rect x="13" y="20" width="3" height="12" rx="1.5" fill="#60b8e8" opacity="0.7"/>
+        </svg>
+      </div>
+      <span class="cat-title">Услуги</span>
+      <span class="cat-arrow">›</span>
+    </a>
+
+    <!-- Личные вещи -->
+    <a class="category-item" href="unavailable.html">
+      <div class="cat-icon icon-personal">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="6" width="10" height="18" rx="5" fill="#d8a8f8"/>
+          <rect x="10" y="6" width="10" height="10" rx="5" fill="#e8c8ff"/>
+          <rect x="6" y="26" width="26" height="8" rx="3" fill="#c090f0"/>
+          <rect x="10" y="24" width="18" height="4" rx="2" fill="#d8b8ff"/>
+        </svg>
+      </div>
+      <span class="cat-title">Личные вещи</span>
+      <span class="cat-arrow">›</span>
+    </a>
+
+    <!-- Для дома и дачи -->
+    <a class="category-item" href="unavailable.html">
+      <div class="cat-icon icon-home">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="18" width="22" height="14" rx="2" fill="#f0a840"/>
+          <polygon points="19,6 33,19 5,19" fill="#f8c870"/>
+          <rect x="15" y="24" width="8" height="8" rx="1.5" fill="#fce8b8"/>
+          <rect x="17" y="21" width="4" height="3" rx="1" fill="#f8d090"/>
+        </svg>
+      </div>
+      <span class="cat-title">Для дома и дачи</span>
+      <span class="cat-arrow">›</span>
+    </a>
+
+    <!-- Электроника -->
+    <a class="category-item" href="unavailable.html">
+      <div class="cat-icon icon-electronics">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="6" width="13" height="22" rx="4" fill="#70c8f0"/>
+          <rect x="12" y="9" width="9" height="14" rx="2" fill="#c8ecff"/>
+          <circle cx="16.5" cy="26" r="1.5" fill="#c8ecff"/>
+          <rect x="25" y="10" width="5" height="16" rx="2.5" fill="#90d8f8"/>
+        </svg>
+      </div>
+      <span class="cat-title">Электроника</span>
+      <span class="cat-arrow">›</span>
+    </a>
+
+    <!-- Хобби и отдых -->
+    <a class="category-item" href="unavailable.html">
+      <div class="cat-icon icon-hobby">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="19" cy="19" r="11" fill="#f8a0d0"/>
+          <circle cx="19" cy="19" r="7" fill="#fcc8e8"/>
+          <circle cx="19" cy="19" r="3" fill="#f870b8"/>
+          <line x1="19" y1="8" x2="19" y2="12" stroke="#f870b8" stroke-width="2" stroke-linecap="round"/>
+          <line x1="19" y1="26" x2="19" y2="30" stroke="#f870b8" stroke-width="2" stroke-linecap="round"/>
+          <line x1="8" y1="19" x2="12" y2="19" stroke="#f870b8" stroke-width="2" stroke-linecap="round"/>
+          <line x1="26" y1="19" x2="30" y2="19" stroke="#f870b8" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="cat-title">Хобби и отдых</span>
+      <span class="cat-arrow">›</span>
+    </a>
+
+    <!-- Животные -->
+    <a class="category-item" href="unavailable.html">
+      <div class="cat-icon icon-animals">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="19" cy="22" rx="10" ry="9" fill="#60d090"/>
+          <ellipse cx="19" cy="21" rx="7" ry="7" fill="#90e8b8"/>
+          <ellipse cx="12" cy="13" rx="3.5" ry="5" fill="#60d090"/>
+          <ellipse cx="26" cy="13" rx="3.5" ry="5" fill="#60d090"/>
+          <circle cx="16" cy="22" r="1.5" fill="#208050"/>
+          <circle cx="22" cy="22" r="1.5" fill="#208050"/>
+          <path d="M16 26 Q19 28.5 22 26" stroke="#208050" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <span class="cat-title">Животные</span>
+      <span class="cat-arrow">›</span>
+    </a>
+
+    <!-- Готовый бизнес и оборудование -->
+    <a class="category-item" href="unavailable.html">
+      <div class="cat-icon icon-business">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="20" width="10" height="14" rx="2" fill="#aaa"/>
+          <rect x="14" y="14" width="10" height="20" rx="2" fill="#bbb"/>
+          <rect x="22" y="8" width="10" height="26" rx="2" fill="#ccc"/>
+          <rect x="7" y="22" width="8" height="2" rx="1" fill="#ddd"/>
+          <rect x="15" y="16" width="8" height="2" rx="1" fill="#ddd"/>
+          <rect x="23" y="10" width="8" height="2" rx="1" fill="#ddd"/>
+        </svg>
+      </div>
+      <span class="cat-title">Готовый бизнес и оборудование</span>
+      <span class="cat-arrow">›</span>
+    </a>
+
+  </nav>
+
+</div>
+
+</body>
+</html>
